@@ -28,20 +28,23 @@ public class HeadDataManager {
 	public List<AdHeadBean> getHeadBeans(Document document){
 	   List<AdHeadBean> adHeadBeans=new ArrayList<AdHeadBean>();;
 	   Elements elements=document.select("div.head-images");
-	   Elements links = elements.first().select("a[data-lazyload]"); //带有data-lazyload属性的a元素
-	   for (Element element : links) {
-		  String title=element.text();
-		  String href=element.attr("href");
-		  String imgurl= ImageUtils.getCutImageUrl(element.attr("data-lazyload"));
-		  String mask= element.select("span").first().text();
-		  AdHeadBean bean=new AdHeadBean();
-		  bean.setTitle(title);
-		  bean.setImgurl(imgurl);
-		  bean.setHref(href);
-		  bean.setMask(mask);
-		  adHeadBeans.add(bean);
-	   }
-       return adHeadBeans;
+		if(elements!=null && elements.first()!=null){
+			Elements links = elements.first().select("a[data-lazyload]"); //带有data-lazyload属性的a元素
+
+			for (Element element : links) {
+				String title=element.text();
+				String href=element.attr("href");
+				String imgurl= ImageUtils.getCutImageUrl(element.attr("data-lazyload"));
+				String mask= element.select("span").first().text();
+				AdHeadBean bean=new AdHeadBean();
+				bean.setTitle(title);
+				bean.setImgurl(imgurl);
+				bean.setHref(href);
+				bean.setMask(mask);
+				adHeadBeans.add(bean);
+			}
+		}
+		return adHeadBeans;
 	}
 	
 	

@@ -28,6 +28,12 @@ public class HomeNewsDataManager {
    */
   public List<HomeNewsBean> getHomeNewsBeans(Document document){
 	  List<HomeNewsBean> homeNewsBeans=new ArrayList<HomeNewsBean>();
+	  if(document==null){
+		  return homeNewsBeans;
+	  }
+	  if(document.select("div.articles").first()==null){
+		  return homeNewsBeans;
+	  }
 	  Elements elements= document.select("div.articles").first().select("article");
 	  for (Element element : elements) {
 		  //图标以及文章类型
